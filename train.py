@@ -142,6 +142,9 @@ if __name__ == '__main__':
     elif args.dataset in ["msra"]:
         bert_class = 'bert-base-chinese' # auto
         # bert_class = 'pretrained_bert_models/bert-base-chinese/' # manual
+    elif args.dataset in ["pe"]:
+        bert_class = 'bert-base-multilingual-cased' # auto
+        # bert_class = 'pretrained_bert_models/bert-base-chinese/' # manual
     
     data_loader = DataLoader(data_dir, bert_class, params, token_pad_idx=0, tag_pad_idx=-1)
     

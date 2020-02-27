@@ -64,6 +64,8 @@ def bert_ner_init():
         bert_class = 'bert-base-cased'
     elif args.dataset in ["msra"]:
         bert_class = 'bert-base-chinese'
+    elif args.dataset in ["pe"]:
+        bert_class = 'bert-base-multilingual-cased'
 
     data_loader = DataLoader(data_dir, bert_class, params, token_pad_idx=0, tag_pad_idx=-1)
 
@@ -75,7 +77,7 @@ def bert_ner_init():
 
 def BertNerResponse(model, queryString):    
     model, data_loader, dataset, params = model
-    if dataset in ['msra']:
+    if dataset in ['msra','pe']:
         queryString = [i for i in queryString]
     elif dataset in ['conll']:
         queryString = nltk.word_tokenize(queryString)
@@ -89,7 +91,7 @@ def BertNerResponse(model, queryString):
     result = interAct(model, inter_data_iterator, params)
     res = []
     for item in result:
-        if dataset in ['msra']:
+        if dataset in ['msra','pe']:
             res.append((''.join(queryString[item[1]:item[2]+1]), item[0]))
         elif dataset in ['conll']:
             res.append((' '.join(queryString[item[1]:item[2]+1]), item[0]))
